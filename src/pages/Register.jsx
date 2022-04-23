@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import BlokImg from "../assets/blok.png";
 import { CardContent, CardMedia } from '@mui/material';
+import GoogleImg from "../assets/google.png"
 
 
 
@@ -15,21 +16,28 @@ export default function Login() {
   
 
   return (
-    
-    
-    <Card sx={{display: 'inline-flex', width:"25%", height:"70vh", marginTop: '5%',}}>
+
+    <div className="App"
+    style={{backgroundImage:`url("https://picsum.photos/800/800")`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+    height: "100vh",
+    marginTop: "-32px"
+  }}
+    >
+    <Card sx={{display: 'flex', width:"26rem", marginLeft:"37.5%", marginTop:"2rem", paddingTop:"10px", position:"relative", top: "40px"}}>
       
       <Box
       component="form"
       sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' }, display: 'grid', alignItems:"center", marginLeft:"18%", textAlign: 'center', verticalAlign: 'middle' 
+        '& .MuiTextField-root': { m: 1, width: '25ch' },  alignItems:"center", marginLeft:"19%", textAlign: 'center', verticalAlign: 'middle' 
       }}
       noValidate
       autoComplete="on"
     >
      <CardMedia sx={{ marginTop:"10px", borderRadius: '50%', backgroundColor:"#046582"}}
       component="img"
-      height="250"
+      height="200"
       image={BlokImg}
       alt="Blok_image"
      />
@@ -56,7 +64,13 @@ export default function Login() {
        <Stack spacing={2} direction="column" >
       
       <Button variant="contained">Register</Button>
-      <Button variant="outlined">with </Button>
+      <Button variant="outlined">
+        with 
+      <img src={GoogleImg} alt="google_img" 
+      height="20" 
+      style={{marginLeft:10}}
+      />   
+      </Button>
       
     </Stack>
     </CardContent>
@@ -66,7 +80,7 @@ export default function Login() {
     
       
     </Card>
-    
+    </div>
   );
 }
 
