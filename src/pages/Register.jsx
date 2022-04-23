@@ -6,13 +6,25 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import BlokImg from "../assets/blok.png";
 import { CardContent, CardMedia } from '@mui/material';
-import GoogleImg from "../assets/google.png"
+import GoogleImg from "../assets/google.png";
+import { useState } from "react";
+import {useNavigate} from "react-router-dom";
+import {createUser} from "../helpers/firebase"
+
+
 
 
 
 export default function Login() {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const navigate = useNavigate();
   
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    createUser(email, password, navigate);
+    
+  };
   
 
   return (
@@ -34,6 +46,7 @@ export default function Login() {
       }}
       noValidate
       autoComplete="on"
+      onSubmit={handleSubmit}
     >
      <CardMedia sx={{ marginTop:"10px", borderRadius: '50%', backgroundColor:"#046582"}}
       component="img"
@@ -50,7 +63,7 @@ export default function Login() {
           id="outlined-email"
           label="Email"
           size="large"
-          
+          onChange={(e) => setEmail(e.target.value)} 
         />
        </div>
        <div>
@@ -58,13 +71,15 @@ export default function Login() {
           required
           id="outlined-password"
           label="Password"
+          type="password"
+          onChange={(e) => setPassword(e.target.value)} 
           
         />
        </div>
        <Stack spacing={2} direction="column" >
       
-      <Button variant="contained">Register</Button>
-      <Button variant="outlined">
+      <Button variant="contained" type="submit">Register</Button>
+      <Button variant="outlined" type="submit">
         with 
       <img src={GoogleImg} alt="google_img" 
       height="20" 
@@ -76,9 +91,6 @@ export default function Login() {
     </CardContent>
       
     </Box>
-
-    
-      
     </Card>
     </div>
   );
