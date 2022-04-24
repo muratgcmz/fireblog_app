@@ -1,5 +1,12 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword,} from "firebase/auth";
+import { 
+    getAuth, 
+    createUserWithEmailAndPassword,signInWithEmailAndPassword,
+    signOut,
+    GoogleAuthProvider,
+    signInWithPopup,
+    onAuthStateChanged,
+} from "firebase/auth";
 
 // TODO: Replace the following with your app's Firebase project configuration
 // See: https://firebase.google.com/docs/web/learn-more#config-object
@@ -42,3 +49,35 @@ export const signIn = async (email, password,
         alert(err.message)
     }
 };
+
+export const logOut = () =>{
+    signOut(auth);
+    alert("logged out successfully")
+};
+export const signUpProvider = (navigate) => {
+    //? Google ile giriş yapılması için kullanılan firebase metodu
+    const provider = new GoogleAuthProvider();
+    //? Açılır pencere ile giriş yapılması için kullanılan firebase metodu
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        console.log(result);
+        navigate("/");
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        console.log(error);
+      });
+  };
+
+  export const userObserver = (setCurrentUser) => {
+    //? Kullanıcının signin olup olmadığını takip eden ve kullanıcı değiştiğinde yeni kullanıcıyı response olarak dönen firebase metodu
+    onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setCurrentUser(currentUser);
+      } else {
+        // User is signed out
+        setCurrentUser(false);
+      }
+    });
+  };
+  

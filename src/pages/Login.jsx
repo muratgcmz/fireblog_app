@@ -9,7 +9,7 @@ import { CardContent, CardMedia } from '@mui/material';
 import GoogleImg from "../assets/google.png"
 import { useState } from "react";
 import {useNavigate} from "react-router-dom";
-import {signIn} from "../helpers/firebase";
+import {signIn, signUpProvider} from "../helpers/firebase";
 
 
 
@@ -24,6 +24,10 @@ export default function Login() {
     e.preventDefault();
     signIn(email, password, navigate)
     
+  };
+
+  const handleProviderLogin = () => {
+    signUpProvider(navigate);
   };
   
     
@@ -78,7 +82,7 @@ export default function Login() {
        <Stack spacing={2} direction="column" >
       
       <Button variant="contained" type="submit">Login</Button>
-      <Button variant="outlined">
+      <Button variant="outlined" onClick={handleProviderLogin}>
         with <br />
       <img src={GoogleImg} alt="google_img" 
       height="20"

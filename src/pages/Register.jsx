@@ -9,7 +9,7 @@ import { CardContent, CardMedia } from '@mui/material';
 import GoogleImg from "../assets/google.png";
 import { useState } from "react";
 import {useNavigate} from "react-router-dom";
-import {createUser} from "../helpers/firebase"
+import {createUser, signUpProvider} from "../helpers/firebase"
 
 
 
@@ -24,6 +24,10 @@ export default function Login() {
     e.preventDefault();
     createUser(email, password, navigate);
     
+  };
+
+  const handleProviderRegister = () => {
+    signUpProvider(navigate);
   };
   
 
@@ -79,7 +83,7 @@ export default function Login() {
        <Stack spacing={2} direction="column" >
       
       <Button variant="contained" type="submit">Register</Button>
-      <Button variant="outlined" type="submit">
+      <Button variant="outlined"  onClick={handleProviderRegister}>
         with 
       <img src={GoogleImg} alt="google_img" 
       height="20" 
