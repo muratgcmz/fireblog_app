@@ -11,13 +11,15 @@ import MenuItem from '@mui/material/MenuItem';
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import claruswaylogo from "../assets/cw.jpeg"
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthContext';
+import { logOut } from "../helpers/firebase";
 
 const page = ["<Murat/>"];
 
 const Navbar = () => {
   
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const currentUser = false
+  const {currentUser} = React.useContext(AuthContext)
   const navigate=useNavigate()
   
   const handleOpenUserMenu = (event) => {
@@ -35,15 +37,15 @@ const Navbar = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ mr: 2, display: { xs: 'flex',  } }}
+            sx={{ mr: 2, display: { xs: 'flex',  }, cursor: 'pointer' }}
             onClick={() => {navigate("/")}}
           >
-           <img src={claruswaylogo} alt="clglogo" width="50px" height="50px"/>
+           <img src={claruswaylogo} alt="clglogo" width="50px" height="50px"  />
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
           </Box>
            {/* ortadaki yazı kısmı */}
-           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex'},justifyContent: "center", alignItems: "center" }}>
+           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex'},justifyContent: "center", alignItems: "center", cursor: 'pointer'}} onClick={() => {navigate("/")}}>
             <h1 >──── {page}Blog  ──── </h1>
           </Box>
                 {/* Profil ikonu */}
@@ -70,13 +72,13 @@ const Navbar = () => {
               onClose={handleCloseUserMenu}
             >
               {currentUser ? (<>
-              <MenuItem onClick={() => {navigate("/profil"); setAnchorElUser(null)}}>
+              <MenuItem onClick={() => {navigate("/profile"); setAnchorElUser(null)}}>
                 <Typography textAlign="center">Profile</Typography>
               </MenuItem>
               <MenuItem onClick={() => {navigate("/newblog"); setAnchorElUser(null)}}>
-                <Typography textAlign="center">New</Typography>
+                <Typography textAlign="center">New Blog</Typography>
               </MenuItem>
-              <MenuItem onClick={() => {navigate("/logout"); setAnchorElUser(null)}}>
+              <MenuItem onClick={() => {logOut(); navigate("/login"); setAnchorElUser(null)}}>
                 <Typography textAlign="center">Logout</Typography>
               </MenuItem> </>) :
               <><MenuItem onClick={() => {navigate("/login");setAnchorElUser(null)}}>

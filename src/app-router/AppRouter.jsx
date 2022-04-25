@@ -1,11 +1,10 @@
-import {BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "../pages/Login";
 import Dashboard from "../pages/Dashboard";
 import Register from "../pages/Register";
 import Navbar from "../components/Navbar";
 import Profile from "../pages/Profile";
 import NewBlog from "../pages/NewBlog";
-import Logout from "../pages/Logout";
 
 
 
@@ -19,7 +18,6 @@ const AppRouter = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/newblog" element={<NewBlog />} />
-            <Route path="/logout" element={<Logout />} />
         </Routes>
     </BrowserRouter>
 
