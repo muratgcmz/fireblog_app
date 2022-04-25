@@ -1,7 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { 
     getAuth, 
-    createUserWithEmailAndPassword,signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
     signOut,
     GoogleAuthProvider,
     signInWithPopup,
@@ -15,6 +16,7 @@ const firebaseConfig = {
     apiKey: "AIzaSyCJxbywqsZWqDaK9ndp2NlrXlGNDYhKxvk",
     authDomain: "fireblog-799aa.firebaseapp.com",
     projectId: "fireblog-799aa",
+    databaseURL: "https://fireblog-799aa-default-rtdb.firebaseio.com",
     storageBucket: "fireblog-799aa.appspot.com",
     messagingSenderId: "386258820700",
     appId: "1:386258820700:web:c8494ce736c4554263d099"

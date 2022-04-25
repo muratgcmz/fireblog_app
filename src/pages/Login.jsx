@@ -7,9 +7,9 @@ import Button from '@mui/material/Button';
 import BlokImg from "../assets/blok.png";
 import { CardContent, CardMedia } from '@mui/material';
 import GoogleImg from "../assets/google.png"
-import { useState } from "react";
 import {useNavigate} from "react-router-dom";
 import {signIn, signUpProvider} from "../helpers/firebase";
+import { useState } from 'react';
 
 
 
@@ -20,9 +20,11 @@ export default function Login() {
   const [password, setPassword] = useState();
   const navigate = useNavigate();
   
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     signIn(email, password, navigate)
+    
     
   };
 
@@ -63,20 +65,34 @@ export default function Login() {
       <div>
         <TextField
           required
+          name="email"
+          
           id="outlined-email"
           label="Email"
           size="large"
-          onChange={(e) => setEmail(e.target.value)} 
+          onChange={(e) => 
+            
+            setEmail(e.target.value)
+            
+           
+          }
+          
         />
         
        </div>
        <div>
         <TextField
           required
+          name="password"
+          
           id="outlined-password"
           label="Password"
           type="password"
-          onChange={(e) => setPassword(e.target.value)} 
+          onChange={(e) => 
+            setPassword(e.target.value)
+    
+          
+            }
         />
        </div>
        <Stack spacing={2} direction="column" >
