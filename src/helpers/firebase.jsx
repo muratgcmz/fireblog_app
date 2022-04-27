@@ -57,9 +57,8 @@ export const logOut = () =>{
     alert("logged out successfully")
 };
 export const signUpProvider = (navigate) => {
-    //? Google ile giriş yapılması için kullanılan firebase metodu
+    
     const provider = new GoogleAuthProvider();
-    //? Açılır pencere ile giriş yapılması için kullanılan firebase metodu
     signInWithPopup(auth, provider)
       .then((result) => {
         console.log(result);
@@ -72,7 +71,7 @@ export const signUpProvider = (navigate) => {
   };
 
   export const userObserver = (setCurrentUser) => {
-    //? Kullanıcının signin olup olmadığını takip eden ve kullanıcı değiştiğinde yeni kullanıcıyı response olarak dönen firebase metodu
+    
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setCurrentUser(currentUser);

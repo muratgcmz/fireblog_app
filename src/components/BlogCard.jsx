@@ -11,13 +11,15 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import { useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
+import { useNavigate } from 'react-router-dom';
 
-export default function MediaCard() {
+export default function BlogCard({item}) {
     const { currentUser } = useContext(AuthContext);
-
+    const navigate = useNavigate()
     const [likeNumber, setLikeNumber] = useState(0);
     const [likeColor, setLikeColor] = useState();
     const [click, setClick] = useState(true);
+    //const { title, imageURL, content, author } = item;
   
   
     ///like make red and +1 function
@@ -33,30 +35,33 @@ export default function MediaCard() {
       }
     };
 
+    const handleClick = () => {
+        navigate("/details", {state:{item}})
+    }
+
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345 }} onClick={handleClick}>
       <CardMedia
         component="img"
         height="140"
-        image="/static/images/cards/contemplative-reptile.jpg"
+        image={item.imageURL}
         alt="green iguana"
       />
       <CardContent sx={{backgroundColor:"#EFEEFE"}}>
         <Typography gutterBottom variant="h5" component="div">
-          TİTLE HERE
+        {item.title}
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{marginBottom:"10px"}}>
           DATE HERE
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+        {item.content}
         </Typography>
       </CardContent>
       <CardActions>
       <AccountCircleIcon fontSize='small'/>
       <Typography variant="body2" color="text.secondary" sx={{m:1}}>
-        {currentUser?.email} 
+      {item.author}
       </Typography>
      
       </CardActions>

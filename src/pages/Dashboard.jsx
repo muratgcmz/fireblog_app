@@ -1,16 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import BlogCard from "../components/BlogCard";
+import { BlogContext } from "../contexts/BlogContext";
 
 
 
 const Dashboard = () => {
  
-  const navigate = useNavigate()
-
-  const handleClick = () => {
-    navigate("/details");
-  }
+  const { BlogFetch } = useContext(BlogContext);
+  const { isLoading, blogList } = BlogFetch();
 
   return (
     <div>
@@ -24,8 +22,12 @@ const Dashboard = () => {
           justifyContent: "center",
         }}
       >
-        <BlogCard  onClick={handleClick} />
-        <BlogCard  />
+        {
+          blogList?.map((item, index) =>(
+            <BlogCard item={item} index={index} />
+          ))
+        
+        }
       </div>
     </div>
   );

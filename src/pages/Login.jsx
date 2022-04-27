@@ -65,8 +65,8 @@ export default function Login() {
       <div>
         <TextField
           required
+          fullWidth 
           name="email"
-          
           id="outlined-email"
           label="Email"
           size="large"
@@ -83,8 +83,8 @@ export default function Login() {
        <div>
         <TextField
           required
+          fullWidth 
           name="password"
-          
           id="outlined-password"
           label="Password"
           type="password"
