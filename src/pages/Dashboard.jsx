@@ -1,15 +1,15 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import BlogCard from "../components/BlogCard";
 import { BlogContext } from "../contexts/BlogContext";
+import loadingif from "../assets/loading.gif";
 
 
 
 const Dashboard = () => {
+  const {BlogFetch} = useContext(BlogContext);
+  const {blogList, isLoading} = BlogFetch();
  
-  const { BlogFetch } = useContext(BlogContext);
-  const { isLoading, blogList } = BlogFetch();
-
+  
   return (
     <div>
       <h1 className="dash-text">──── Dashboard ────</h1>
@@ -22,12 +22,16 @@ const Dashboard = () => {
           justifyContent: "center",
         }}
       >
-        {
-          blogList?.map((item, index) =>(
-            <BlogCard item={item} index={index} />
-          ))
-        
-        }
+        {isLoading ?(
+          <img src={loadingif} alt="loading_gif"/>
+        ):(
+          <div>
+            {blogList?.map((item, index)=>(
+              <BlogCard item={item} key={index} />
+             ))}
+          </div>   
+        )}
+       
       </div>
     </div>
   );

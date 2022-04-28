@@ -10,7 +10,7 @@ export const BlogContext = createContext()
 const BlogContextProvider = ({ children }) => {
     const { currentUser } = useContext(AuthContext);
     //*bilgi ekleme
-    const AddNewBlog = (info) => {
+    const AddBlog = (info) => {
         const database = getDatabase();
         const blogRef = ref(database, "userinfo");
         const newBlogRef = push(blogRef)
@@ -18,7 +18,7 @@ const BlogContextProvider = ({ children }) => {
             title: info.title,
             imageURL: info.imageURL,
             content: info.content,
-            author: currentUser.email
+            
         })
     }
 
@@ -67,7 +67,7 @@ const BlogContextProvider = ({ children }) => {
 
 
     return (
-        <BlogContext.Provider value={{ BlogFetch, AddNewBlog, DeleteBlog, EditBlog }} >
+        <BlogContext.Provider value={{ BlogFetch, AddBlog, DeleteBlog, EditBlog }} >
             {children}
         </BlogContext.Provider>
     )

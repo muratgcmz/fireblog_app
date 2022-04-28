@@ -7,9 +7,10 @@ import Button from '@mui/material/Button';
 import BlokImg from "../assets/blok.png";
 import { CardContent, CardMedia } from '@mui/material';
 import GoogleImg from "../assets/google.png";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {useNavigate} from "react-router-dom";
-import {createUser, signUpProvider} from "../helpers/firebase"
+import { AuthContext } from '../contexts/AuthContext';
+
 
 
 
@@ -19,6 +20,7 @@ export default function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
+  const {createUser, signUpProvider} = useContext(AuthContext)
   
   const handleSubmit = (e) => {
     e.preventDefault();

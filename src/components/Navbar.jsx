@@ -12,14 +12,14 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import claruswaylogo from "../assets/cw.jpeg"
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
-import { logOut } from "../helpers/firebase";
+
 
 const page = ["<Murat/>"];
 
 const Navbar = () => {
   
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const {currentUser} = React.useContext(AuthContext)
+  const {currentUser, logOut} = React.useContext(AuthContext)
   const navigate=useNavigate()
   
   const handleOpenUserMenu = (event) => {
@@ -48,6 +48,9 @@ const Navbar = () => {
            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex'},justifyContent: "center", alignItems: "center", cursor: 'pointer'}} onClick={() => {navigate("/")}}>
             <h1 >──── {page}Blog  ──── </h1>
           </Box>
+          <span>
+            {currentUser?.displayName ? currentUser?.displayName : currentUser?.email}
+          </span>
                 {/* Profil ikonu */}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -71,7 +74,7 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {currentUser ? (<>
+              {currentUser ? (<div>
               <MenuItem onClick={() => {navigate("/profile"); setAnchorElUser(null)}}>
                 <Typography textAlign="center">Profile</Typography>
               </MenuItem>
@@ -80,13 +83,13 @@ const Navbar = () => {
               </MenuItem>
               <MenuItem onClick={() => {logOut(); navigate("/login"); setAnchorElUser(null)}}>
                 <Typography textAlign="center">Logout</Typography>
-              </MenuItem> </>) :
-              <><MenuItem onClick={() => {navigate("/login");setAnchorElUser(null)}}>
+              </MenuItem> </div>) :
+              <div><MenuItem onClick={() => {navigate("/login");setAnchorElUser(null)}}>
                   <Typography textAlign="center">Login</Typography>
                 </MenuItem>
                 <MenuItem onClick={() => {navigate("/register");setAnchorElUser(null)}}>
                   <Typography textAlign="center">Register</Typography>
-                </MenuItem></>
+                </MenuItem></div>
                 }
             </Menu>
           </Box>

@@ -11,14 +11,14 @@ import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
 import { BlogContext } from "../contexts/BlogContext";
 
-
-const initialValues={title:"", image:"",content:""}
+const initialValues={title:"", imageURL:"",content:""}
 
 const NewBlog = () => {
+  
   const [info, setInfo] = useState(initialValues)
-  const navigate = useNavigate()
-  const {AddNewBlog, EditBlog} = useContext(BlogContext)
-
+  const { AddBlog, EditBlog } = useContext(BlogContext);
+  const navigate = useNavigate();
+  
   const handleChange = (e) => {
     e.preventDefault();
     const { name,value } = e.target
@@ -31,7 +31,7 @@ const NewBlog = () => {
     console.log(info);
     if (info.id) {
       EditBlog(info)
-    } else {AddNewBlog(info)}
+    } else {AddBlog(info)}
     setInfo(initialValues)
     navigate("/")
   }
@@ -76,9 +76,9 @@ const NewBlog = () => {
             id="imgUrl" 
             label="Image URL*" 
             variant="outlined"
-            value={info.image}
+            value={info.imageURL}
             onChange={handleChange}
-            name="image"
+            name="imageURL"
             />
             <TextField  
             id="content"
@@ -90,7 +90,7 @@ const NewBlog = () => {
             minRows={8}
             onChange={handleChange}
             />
-          <Button variant="contained">SUBMIT</Button>
+          <Button variant="contained" type="submit">SUBMIT</Button>
           </Stack>
           </form>
         </Box>

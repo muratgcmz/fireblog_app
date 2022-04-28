@@ -9,12 +9,12 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import { useContext } from "react";
-import { AuthContext } from "../contexts/AuthContext";
-import { useNavigate } from 'react-router-dom';
 
-export default function BlogCard({item}) {
-    const { currentUser } = useContext(AuthContext);
+
+import { useLocation, useNavigate } from 'react-router-dom';
+
+export default function BlogCard({item, style}) {
+   
     const navigate = useNavigate()
     const [likeNumber, setLikeNumber] = useState(0);
     const [likeColor, setLikeColor] = useState();
@@ -40,28 +40,28 @@ export default function BlogCard({item}) {
     }
 
   return (
-    <Card sx={{ maxWidth: 345 }} onClick={handleClick}>
+    <Card sx={{ maxWidth: 345, width:"18rem", height:"23rem" }} onClick={handleClick}>
       <CardMedia
         component="img"
         height="140"
-        image={item.imageURL}
+        image={item?.imageURL}
         alt="green iguana"
       />
       <CardContent sx={{backgroundColor:"#EFEEFE"}}>
         <Typography gutterBottom variant="h5" component="div">
-        {item.title}
+        {item?.title}
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{marginBottom:"10px"}}>
           DATE HERE
         </Typography>
         <Typography variant="body2" color="text.secondary">
-        {item.content}
+        {item?.content}
         </Typography>
       </CardContent>
       <CardActions>
       <AccountCircleIcon fontSize='small'/>
       <Typography variant="body2" color="text.secondary" sx={{m:1}}>
-      {item.author}
+      {item?.author}
       </Typography>
      
       </CardActions>
@@ -82,6 +82,7 @@ export default function BlogCard({item}) {
         1
       </Typography>
       </CardActions>
+
     </Card>
   );
 }

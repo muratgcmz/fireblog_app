@@ -1,5 +1,15 @@
 import { createContext,useState,useEffect } from "react";
-import { userObserver } from "../helpers/firebase";
+import app from "../helpers/firebase";
+import { 
+    getAuth, 
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    GoogleAuthProvider,
+    signInWithPopup,
+    onAuthStateChanged,
+} from "firebase/auth";
+
 
 
 
@@ -10,6 +20,60 @@ export const AuthContext = createContext();
 const AuthContextProvider = (props) => {
     
     const [currentUser, setCurrentUser] = useState()
+    const auth = getAuth(app);
+
+const createUser = async (email, password, navigate) => {
+  try {
+   let userCredential = await createUserWithEmailAndPassword(auth, email, password);
+   console.log(userCredential);
+   navigate("/")
+  }catch (err) {
+      alert(err.message)
+  }
+};
+
+const signIn = async (email, password, 
+    navigate) => {
+    try{
+        let userCredential = await signInWithEmailAndPassword(auth, email, password);
+        console.log(userCredential);
+        navigate("/")
+    }catch (err) {
+        alert(err.message)
+    }
+};
+
+const logOut = () =>{
+    signOut(auth);
+    alert("logged out successfully")
+};
+ const signUpProvider = (navigate) => {
+    
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        console.log(result);
+        navigate("/");
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        console.log(error);
+      });
+  };
+
+ const userObserver = (setCurrentUser) => {
+    
+    onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setCurrentUser(currentUser);
+      } else {
+        // User is signed out
+        setCurrentUser(false);
+      }
+    });
+  };
+  
+
     
 
     useEffect(() => {
@@ -17,10 +81,11 @@ const AuthContextProvider = (props) => {
     }, [])
     
     return(
-        <AuthContext.Provider value={{currentUser}}>
+        <AuthContext.Provider value={{currentUser, signIn, logOut, userObserver, signUpProvider, createUser }}>
             {props.children}
         </AuthContext.Provider>
     )
 }
+
 
 export default AuthContextProvider;

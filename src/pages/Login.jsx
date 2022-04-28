@@ -8,8 +8,8 @@ import BlokImg from "../assets/blok.png";
 import { CardContent, CardMedia } from '@mui/material';
 import GoogleImg from "../assets/google.png"
 import {useNavigate} from "react-router-dom";
-import {signIn, signUpProvider} from "../helpers/firebase";
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { AuthContext } from '../contexts/AuthContext';
 
 
 
@@ -19,6 +19,7 @@ export default function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
+  const {signIn, signUpProvider} = useContext(AuthContext)
   
   
   const handleSubmit = (e) => {
