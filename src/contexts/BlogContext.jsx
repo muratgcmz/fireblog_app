@@ -3,12 +3,16 @@
 import { getDatabase, ref, set, push, onValue, update, remove } from "firebase/database";
 import { createContext, useState, useEffect, useContext } from "react";
 import { AuthContext } from '../contexts/AuthContext';
+import toastify from "../helpers/toastify";
 
 export const BlogContext = createContext()
-
+const d = new Date();
+const time = d.toLocaleDateString();
 
 const BlogContextProvider = ({ children }) => {
     const { currentUser } = useContext(AuthContext);
+    
+    
     //*bilgi ekleme
     const AddBlog = (info) => {
         const database = getDatabase();
@@ -18,8 +22,10 @@ const BlogContextProvider = ({ children }) => {
             title: info.title,
             imageURL: info.imageURL,
             content: info.content,
-            
+            author: currentUser.email,
+            date : time
         })
+        toastify("Blog Added successfully")
     }
 
     //*bilgi çağırma
@@ -50,7 +56,7 @@ const BlogContextProvider = ({ children }) => {
       //!veri Silme
       const DeleteBlog = (id) => {
         const database = getDatabase();
-        const blogRef = ref(database, "userinfo");
+        toastify("Blog deleted successfully")
 
         remove(ref(database, "userinfo/" + id))
     }
@@ -60,9 +66,10 @@ const BlogContextProvider = ({ children }) => {
     const EditBlog = (info) => {
         const database = getDatabase();
         const updates = {};
+        toastify("Blog updated successfully")
 
         updates["userinfo/" + info.id] = info;
-        return update(ref(database, updates))
+        return update(ref(database), updates)
     }
 
 

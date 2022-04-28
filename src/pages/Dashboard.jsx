@@ -22,15 +22,15 @@ const Dashboard = () => {
           justifyContent: "center",
         }}
       >
-        {isLoading ?(
+        {isLoading ?
           <img src={loadingif} alt="loading_gif"/>
-        ):(
-          <div>
+        :<>
+          
             {blogList?.map((item, index)=>(
               <BlogCard item={item} key={index} />
              ))}
-          </div>   
-        )}
+        </>
+        }
        
       </div>
     </div>

@@ -13,8 +13,8 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
-export default function BlogCard({item, style}) {
-   
+export default function BlogCard({item}) {
+    
     const navigate = useNavigate()
     const [likeNumber, setLikeNumber] = useState(0);
     const [likeColor, setLikeColor] = useState();
@@ -45,14 +45,15 @@ export default function BlogCard({item, style}) {
         component="img"
         height="140"
         image={item?.imageURL}
-        alt="green iguana"
+        alt="content_img"
+       
       />
       <CardContent sx={{backgroundColor:"#EFEEFE"}}>
         <Typography gutterBottom variant="h5" component="div">
         {item?.title}
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{marginBottom:"10px"}}>
-          DATE HERE
+          {item.date}
         </Typography>
         <Typography variant="body2" color="text.secondary">
         {item?.content}

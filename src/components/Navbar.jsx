@@ -45,11 +45,11 @@ const Navbar = () => {
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
           </Box>
            {/* ortadaki yazı kısmı */}
-           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex'},justifyContent: "center", alignItems: "center", cursor: 'pointer'}} onClick={() => {navigate("/")}}>
-            <h1 >──── {page}Blog  ──── </h1>
+           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'flex'},justifyContent: "center", alignItems: "center", }} >
+            <span style={{cursor:"pointer" }} onClick={() => {navigate("/")}}><h1>──── {page}Blog  ──── </h1></span>
           </Box>
-          <span>
-            {currentUser?.displayName ? currentUser?.displayName : currentUser?.email}
+          <span style={{marginRight:"10px"}}>
+            <strong>{currentUser?.displayName ? currentUser?.displayName : currentUser?.email}</strong>
           </span>
                 {/* Profil ikonu */}
           <Box sx={{ flexGrow: 0 }}>

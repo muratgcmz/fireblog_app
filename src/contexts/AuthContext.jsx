@@ -9,6 +9,7 @@ import {
     signInWithPopup,
     onAuthStateChanged,
 } from "firebase/auth";
+import toastify from "../helpers/toastify";
 
 
 
@@ -37,15 +38,17 @@ const signIn = async (email, password,
     try{
         let userCredential = await signInWithEmailAndPassword(auth, email, password);
         console.log(userCredential);
+        
         navigate("/")
     }catch (err) {
         alert(err.message)
     }
+    toastify("Sign in successfully")
 };
 
 const logOut = () =>{
     signOut(auth);
-    alert("logged out successfully")
+    toastify("Logout successfully")
 };
  const signUpProvider = (navigate) => {
     
@@ -59,6 +62,7 @@ const logOut = () =>{
         // Handle Errors here.
         console.log(error);
       });
+      toastify("Sign in successfully")
   };
 
  const userObserver = (setCurrentUser) => {
