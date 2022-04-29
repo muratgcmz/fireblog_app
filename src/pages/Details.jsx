@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
-import BlogCard from "../components/BlogCard";
 import { useState } from "react";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -12,7 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import { BlogContext } from '../contexts/BlogContext';
-import { Button } from '@mui/material';
+import { Box, Button, Container, CssBaseline, Stack } from '@mui/material';
 import { AuthContext } from '../contexts/AuthContext';
 
 
@@ -53,65 +52,114 @@ const handleUpdate = () => {
  
   return (
   
-    <div>
-      <h1 className="detail-text">──── Details ────</h1>
-  
-    <Card sx={{width:"80rem", height:"40rem",justifyContent:"center", alignItems:"center",  textAlign:"center", marginTop:"2rem",  margin:"auto"}} >
-      <CardMedia
-        component="img"
-        height="350"
-        image={item?.imageURL}
-        alt="green iguana"
-      />
-      <CardContent sx={{backgroundColor:"#EFEEFE", height:"7rem", textAlign:"center"}}>
-        <Typography gutterBottom variant="h5" component="div">
-        {item?.title}
+    <React.Fragment>
+      <CssBaseline />
+      <Container maxWidth="xxl">
+        <Typography
+          sx={{ color: "#046582", fontFamily: "Girassol" }}
+          variant="h2"
+          component="h2"
+        >
+          ──── DETAILS ────
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{marginBottom:"10px"}}>
-          {item?.date}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-        {item?.content}
-        </Typography>
-      </CardContent>
-      <CardActions>
-      <AccountCircleIcon fontSize='large'/>
-      <Typography variant="body2" color="text.secondary" sx={{m:1, flexDirection:"start",width:"100rem"}}>
-      {item?.author}
-      </Typography>
-     
-      </CardActions>
-      <CardActions>
-      <IconButton aria-label="add to favorites" 
-            onClick={() => {handleLike();}}
-            sx={{ color: `${likeColor}`}}>
-          <FavoriteIcon />
-      </IconButton>
-      <Typography variant="body2" color="text.secondary" sx={{m:1}}>
-        {likeNumber}
-      </Typography>
-     
-      <IconButton aria-label="comment">
-        <ChatBubbleOutlineIcon />
-      </IconButton>
-     < Typography variant="body2" color="text.secondary" sx={{m:1}}>
-        1
-      </Typography>
-      </CardActions>
-
-      {(currentUser?.email) === (item.author) ? 
-      <>
-      <Button variant="contained" sx={{marginRight:"10px"}} onClick={() =>{handleUpdate(item.id)}}>Update</Button>
-      <Button variant="contained" sx={{backgroundColor:"red"}} onClick={() => { handleDelete(item.id) }}>Delete</Button>
-      </> 
-      : ""
-    }
-    </Card>
-    </div>
+        <Box>
+          <Card
+            sx={{
+              width: "90%",
+              height: "40%",
+              display: "block",
+              margin: "auto",
+              marginBottom: 4,
+            }}
+          >
+            <CardMedia
+              component="img"
+              alt={item.title}
+              height="60%"
+              image={item.imageURL}
+              objectfit="contain"
+            />
+            <CardContent
+              sx={{
+                display: "block",
+                backgroundColor: "#EFEEFE",
+                padding: "0.5rem",
+              }}
+            >
+              <Typography
+                sx={{
+                  fontFamily: "Girassol",
+                  color: "#046582",
+                  fontSize: "2rem",
+                }}
+                gutterBottom
+                variant="h5"
+                component="div"
+              >
+                {item.title}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {item.date}
+              </Typography>
+              <Typography sx={{ textAlign: "start" }}>
+                {item.content}
+              </Typography>
+            </CardContent>
+            <CardContent>
+              <Typography sx={{ color: "black", textAlign: "start" }}>
+                <IconButton sx={{ color: "black" }}>
+                  <AccountCircleIcon fontSize="medium" />
+                </IconButton>
+                {item.author}
+              </Typography>
+            </CardContent>
+            <CardActions sx={{ marginTop: -2 }}>
+              <IconButton aria-label="add to favorites"
+              onClick={() => {handleLike();}}
+              sx={{ color: `${likeColor}`}}>
+                <FavoriteIcon />
+              </IconButton>
+              <span>{likeNumber}</span>
+              <IconButton aria-label="comment">
+                <ChatBubbleOutlineIcon />
+              </IconButton>
+              <span>1</span>
+            </CardActions>
+          </Card>
+          {item.author === currentUser?.email ? (
+            <Stack
+              direction="row"
+              sx={{
+                display: "flex",
+                justifyContent: "space-around",
+                marginY: 3,
+              }}
+            >
+              <Button
+                size="large"
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  handleUpdate(item.id);
+                }}
+              >
+                Update
+              </Button>
+              <Button
+                size="large"
+                variant="contained"
+                color="error"
+                onClick={() => {
+                  handleDelete(item.id);
+                }}
+              >
+                Delete
+              </Button>
+            </Stack>
+          ) : null}
+        </Box>
+      </Container>
+    </React.Fragment>
   );
-
-    
-  
-  }
-
-export default Details
+};
+export default Details;

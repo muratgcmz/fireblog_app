@@ -18,7 +18,6 @@ const Dashboard = () => {
           display: "flex",
           flexWrap: "wrap",
           gap: "1rem",
-          
           justifyContent: "center",
         }}
       >

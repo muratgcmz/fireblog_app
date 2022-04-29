@@ -27,7 +27,8 @@ const createUser = async (email, password, navigate) => {
   try {
    let userCredential = await createUserWithEmailAndPassword(auth, email, password);
    console.log(userCredential);
-   navigate("/")
+   toastify("User created successfully")
+   navigate("/login")
   }catch (err) {
       alert(err.message)
   }
@@ -38,12 +39,12 @@ const signIn = async (email, password,
     try{
         let userCredential = await signInWithEmailAndPassword(auth, email, password);
         console.log(userCredential);
-        
+        toastify("Logg in successfully")
         navigate("/")
     }catch (err) {
         alert(err.message)
     }
-    toastify("Sign in successfully")
+    
 };
 
 const logOut = () =>{
@@ -57,12 +58,13 @@ const logOut = () =>{
       .then((result) => {
         console.log(result);
         navigate("/");
+        toastify("Sign in successfully")
       })
       .catch((error) => {
         // Handle Errors here.
         console.log(error);
       });
-      toastify("Sign in successfully")
+      
   };
 
  const userObserver = (setCurrentUser) => {
